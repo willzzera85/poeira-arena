@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cu4b1udjq8kba"]
+
+[ext_resource type="Script" uid="uid://go033e64hu84" path="res://oponente.gd" id="1_xgyby"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oponente"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oponente"]
+albedo_color = Color(0.82, 0.12, 0.08, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_oponente"]
+material = SubResource("StandardMaterial3D_oponente")
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_barra_fundo"]
+shading_mode = 0
+albedo_color = Color(0.12, 0.12, 0.12, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_barra_fundo"]
+size = Vector2(1.05, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_barra_vida"]
+shading_mode = 0
+albedo_color = Color(0.15, 0.85, 0.2, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_barra_vida"]
+size = Vector2(1, 0.12)
+
+[node name="Oponente" type="CharacterBody3D" unique_id=1790271655 groups=["oponente"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_xgyby")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1144090405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_oponente")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=353826387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_oponente")
+
+[node name="PontoDisparo" type="Marker3D" parent="." unique_id=1307084976 groups=["oponente"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.7)
+
+[node name="Timer" type="Timer" parent="." unique_id=1860122438]
+wait_time = 1.2
+autostart = true
+
+[node name="BarraVida" type="Node3D" parent="." unique_id=1380085784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+
+[node name="Fundo" type="MeshInstance3D" parent="BarraVida" unique_id=1802202082]
+material_override = SubResource("StandardMaterial3D_barra_fundo")
+mesh = SubResource("QuadMesh_barra_fundo")
+
+[node name="Preenchimento" type="MeshInstance3D" parent="BarraVida" unique_id=1862785136]
+material_override = SubResource("StandardMaterial3D_barra_vida")
+mesh = SubResource("QuadMesh_barra_vida")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1861055177]
